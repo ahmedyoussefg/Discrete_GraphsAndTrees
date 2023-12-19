@@ -1,9 +1,6 @@
 import com.sun.source.tree.Tree;
 
-import java.util.Deque;
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.Scanner;
+import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
@@ -30,6 +27,13 @@ public class Main {
                 treeNodes.add(right_child);
             }
         }
-        System.out.println("hello world");
+        BinaryTree binaryTree = new BinaryTree(root);
+        ArrayList<Integer> inorder_traversal = binaryTree.traverseInOrder();
+
+        System.out.print("Inorder Traversal: ");
+        for (int node : inorder_traversal) {
+            System.out.print(node + " ");
+        }
+        System.out.println();
     }
 }
