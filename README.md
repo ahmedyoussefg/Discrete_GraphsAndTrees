@@ -171,8 +171,8 @@ The Class Schedule Optimization program employs the Welsh-Powell algorithm to ge
     
 
 ## Sample Runs & Test Cases
-![test1.png](./ClassScheduleOptimization/test%20cases/test1.png)
-![test2.png](./ClassScheduleOptimization/test%20cases/test2.png)
+![test1.png](./2.%20ClassScheduleOptimization/test%20cases/test1.png)
+![test2.png](./2.%20ClassScheduleOptimization/test%20cases/test2.png)
 
 
 ## Assumptions
@@ -402,8 +402,8 @@ This Java program focuses on the implementation of binary tree traversal methods
     ```
 
 ## Sample Runs & Test Cases
-![test1.png](./TreeTraversal/test%20cases/test1.png)
-![test2.png](./TreeTraversal/test%20cases/test2.png)
+![test1.png](./3.%20TreeTraversal/test%20cases/test1.png)
+![test2.png](./3.%20TreeTraversal/test%20cases/test2.png)
 
 
 ## Assumptions
