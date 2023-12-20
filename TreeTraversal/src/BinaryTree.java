@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Stack;
 
 public class BinaryTree {
-    TreeNode root;
+    private TreeNode root;
 
     BinaryTree(){}
     BinaryTree(TreeNode root){
