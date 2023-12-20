@@ -2,7 +2,6 @@ import java.util.*;
 
 public class ShortestPathFinder {
     private AirlineNetwork graph;
-    private Path required_path;
     ShortestPathFinder(){}
 
     ShortestPathFinder(AirlineNetwork graph){
