@@ -10,30 +10,40 @@ public class Main {
         int root_value = in.nextInt();
         TreeNode root = new TreeNode(root_value);
         treeNodes.add(root);
-        while(!treeNodes.isEmpty()) {
+        while (!treeNodes.isEmpty()) {
             TreeNode current = treeNodes.poll();
             System.out.printf("Enter left child value of %d (or -1 to skip): \n", current.getData());
             int child = in.nextInt();
-            if (child != -1){ // left child
-                TreeNode left_child =new TreeNode(child);
+            if (child != -1) { // left child
+                TreeNode left_child = new TreeNode(child);
                 current.setLeftChild(left_child);
                 treeNodes.add(left_child);
             }
             System.out.printf("Enter right child value of %d (or -1 to skip): \n", current.getData());
             child = in.nextInt();
-            if (child != -1){
+            if (child != -1) {
                 TreeNode right_child = new TreeNode(child);
                 current.setRightChild(right_child);
                 treeNodes.add(right_child);
             }
         }
         BinaryTree binaryTree = new BinaryTree(root);
+        ArrayList<Integer> preorder_traversal = binaryTree.traversePreOrder();
         ArrayList<Integer> inorder_traversal = binaryTree.traverseInOrder();
-
+        ArrayList<Integer> postorder_traversal = binaryTree.traversePostOrder();
+        System.out.print("Preorder Traversal: ");
+        for (int node : preorder_traversal) {
+            System.out.print(node + " ");
+        }
+        System.out.println();
         System.out.print("Inorder Traversal: ");
         for (int node : inorder_traversal) {
             System.out.print(node + " ");
         }
         System.out.println();
+        System.out.print("Postorder Traversal: ");
+        for (int node : postorder_traversal) {
+            System.out.print(node + " ");
+        }
     }
 }
