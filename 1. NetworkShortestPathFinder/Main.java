@@ -20,8 +20,16 @@ public class Main {
         AirlineNetwork network = new AirlineNetwork(airports, flights, cost_map);
         System.out.print("Enter source airport: ");
         String source=in.next();
+        if (!network.airportExists(source)) {
+            System.out.print("The airport does not exist!");
+            exit(1);
+        }
         System.out.print("Enter destination airport: ");
         String target=in.next();
+        if (!network.airportExists(target)) {
+            System.out.print("The airport does not exist!");
+            exit(1);
+        }
         ShortestPathFinder dijkstra = new ShortestPathFinder(network);
         ShortestPathFinder.Path path = dijkstra.calculateShortestPath(source, target);
         if (path==null){
@@ -31,4 +39,5 @@ public class Main {
         System.out.println("Shortest path from " + source + " to " + target + ": " + path.getPath());
         System.out.println("Total distance: " + path.getPathCost() + " miles");
     }
+
 }

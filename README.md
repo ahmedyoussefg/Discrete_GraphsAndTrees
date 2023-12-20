@@ -3,6 +3,86 @@
 ---
 
 # 1. Airline Network Shortest-Path Finder
+Develop a Java program to assist airline passengers in finding the most efficient route between two airports within an airline's network. The program should model the airline network as a graph, where airports are nodes and flights are edges. Users can input details of flight connections between airports and find the shortest path between a specified source and destination airport. The goal is to display the optimal route details, including the sequence of airports to visit and the total distance or time required for the journey.
+
+## **Used Data Structures:**
+
+1. **Adjacency List:**
+    - **Purpose:** Represents the airline network graph.
+    - **Implementation:** Utilized to store connections between airports, where each airport is a node and flights are edges.
+2. **Priority Queue:**
+    - **Purpose:** Used in Dijkstra's algorithm to efficiently process nodes based on their current distances from the source airport.
+    - **Implementation:** Prioritizes nodes based on the current distance, with the node having the smallest distance being processed first.
+3. **HashMaps:**
+    - **Purpose:** Used to store information such as flight distances and track visited airports during the algorithm.
+    - **Implementation:** Maps flight connections to their distances (**`cost_map`**) and tracks visited airports (**`visited`**, **`distance`**, **`previous`**).
+4. **ArrayList:**
+    - **Purpose:** Used to store lists of neighboring airports for each airport in the adjacency list.
+    - **Implementation:** Represents the connections from each airport to its neighboring airports.
+
+## **Implementation Details:**
+
+### **Main.java:**
+
+1. **User Input:**
+    - The program prompts users to input a list of airports and details of flight connections, including distances.
+    - Users provide source and destination airports for which the shortest path will be calculated.
+2. **Error Handling:**
+    - The program checks for invalid inputs, such as non-existent airports or missing flight paths between specified source and target airports.
+    - If an error is detected, an appropriate error message is displayed, and the program exits.
+3. **Airline Network Initialization:**
+    - An instance of the **`AirlineNetwork`** class is created using user-provided airport and flight details.
+    - The network includes an adjacency list to represent connections between airports and a map (**`cost_map`**) to store flight distances.
+4. **Shortest Path Calculation:**
+    - An instance of the **`ShortestPathFinder`** class is created with the initialized **`AirlineNetwork`**.
+    - Dijkstra's algorithm is applied to calculate the shortest path between the specified source and destination airports.
+    - The optimal route details, including the sequence of airports and the total distance, are then displayed.
+
+### **AirlineNetwork.java:**
+
+1. **Graph Representation:**
+    - The class uses an adjacency list to represent the airline network graph.
+    - Each airport is a node, and flights between airports are edges.
+2. **Initialization:**
+    - The constructor initializes the adjacency list, airports, flights, and the **`cost_map`** using user-provided details.
+    - Edges are added to the graph based on flight connections.
+3. **Methods:**
+    - **`getGraphRepresentation()`**: Returns the adjacency list representing the graph.
+    - **`calculateEdgeCost(String source, String destination)`**: Calculates the cost of the edge (flight) between two airports.
+
+
+1. **Dijkstra's Algorithm:**
+    - The class applies Dijkstra's algorithm to find the shortest path between two specified airports in the airline network.
+    - It uses a priority queue to efficiently process nodes based on their current distances.
+2. **Path Representation:**
+    - The **`Path`** inner class encapsulates information about the calculated shortest path, including the path representation and total distance.
+3. **calculateShortestPath Method:**
+    - Iterates through the nodes using a priority queue and updates distances based on the current shortest paths.
+    - Tracks visited nodes, distances, and previous nodes for backtracking.
+4. **buildPath Method:**
+    - Constructs the path representation by backtracking from the destination to the source.
+    
+    ---
+    
+## **Assumptions**
+    
+1. Input and output are in the same format of the lab manual.
+2. The user will not enter non-existing airport in the flights section.
+
+
+---
+
+## Sample runs & Test cases
+
+![1.png](./1.%20NetworkShortestPathFinder/test_cases/1.png)
+
+![2.png](./1.%20NetworkShortestPathFinder/test_cases/2.png)
+
+![3.png](./1.%20NetworkShortestPathFinder/test_cases/3.png)
+
+![4.png](./1.%20NetworkShortestPathFinder/test_cases/4.png)
+
+![5.png](./1.%20NetworkShortestPathFinder/test_cases/5.png)
 
 ---
 
@@ -361,12 +441,18 @@ This Java program focuses on the implementation of binary tree traversal methods
             System.out.print("Enter the value of the root node: ");
             int root_value = in.nextInt();
             TreeNode root = new TreeNode(root_value);
+            ArrayList<Integer> seen_nodes = new ArrayList<>();
             treeNodes.add(root);
+            seen_nodes.add(root_value);
             while (!treeNodes.isEmpty()) {
                 TreeNode current = treeNodes.poll();
                 System.out.printf("Enter left child value of %d (or -1 to   skip): \n", current.getData());
                 int child = in.nextInt();
                 if (child != -1) { // left child
+                    if (isRepeated(child,seen_nodes)) {
+                        System.out.print("Assumption: Numbers must be unique.");
+                        exit(1);
+                    }
                     TreeNode left_child = new TreeNode(child);
                     current.setLeftChild(left_child);
                     treeNodes.add(left_child);
@@ -374,6 +460,10 @@ This Java program focuses on the implementation of binary tree traversal methods
                 System.out.printf("Enter right child value of %d (or -1     to skip): \n", current.getData());
                 child = in.nextInt();
                 if (child != -1) {
+                    if (isRepeated(child,seen_nodes)) {
+                        System.out.print("Assumption: Numbers must be unique.");
+                        exit(1);
+                    }
                     TreeNode right_child = new TreeNode(child);
                     current.setRightChild(right_child);
                     treeNodes.add(right_child);
@@ -398,6 +488,14 @@ This Java program focuses on the implementation of binary tree traversal methods
                 System.out.print(node + " ");
             }
         }
+        static boolean isRepeated(int node, ArrayList<Integer> seen_nodes){
+            for (int seen : seen_nodes) {
+                if (node == seen) {
+                    return true;
+                }
+            }
+            return false;
+        }
     }
     ```
 
@@ -410,3 +508,4 @@ This Java program focuses on the implementation of binary tree traversal methods
 
 - Input and output are in the same format of the lab manual.
 - Only integers are allowed
+- The numbers within the tree must be unique. This design choice was made to enhance the distinction between different tree traversals.

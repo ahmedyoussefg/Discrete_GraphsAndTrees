@@ -61,4 +61,13 @@ public class AirlineNetwork {
     public void setFlights(String[] flights) {
         this.flights = flights;
     }
+    boolean airportExists(String airport) {
+        for (String one : airports) {
+            if (one.equals(airport)){
+                return true;
+            }
+        }
+        return false;
+    }
+
 }

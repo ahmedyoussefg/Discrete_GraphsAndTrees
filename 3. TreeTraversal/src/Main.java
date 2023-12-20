@@ -2,6 +2,8 @@ import com.sun.source.tree.Tree;
 
 import java.util.*;
 
+import static java.lang.System.exit;
+
 public class Main {
     public static void main(String[] args) {
         Queue<TreeNode> treeNodes = new LinkedList<>();
@@ -9,12 +11,19 @@ public class Main {
         System.out.print("Enter the value of the root node: ");
         int root_value = in.nextInt();
         TreeNode root = new TreeNode(root_value);
+        ArrayList<Integer> seen_nodes = new ArrayList<>();
         treeNodes.add(root);
+        seen_nodes.add(root_value);
         while (!treeNodes.isEmpty()) {
             TreeNode current = treeNodes.poll();
             System.out.printf("Enter left child value of %d (or -1 to skip): \n", current.getData());
             int child = in.nextInt();
             if (child != -1) { // left child
+                if (isRepeated(child,seen_nodes)) {
+                    System.out.print("Assumption: Numbers must be unique.");
+                    exit(1);
+                }
+                seen_nodes.add(child);
                 TreeNode left_child = new TreeNode(child);
                 current.setLeftChild(left_child);
                 treeNodes.add(left_child);
@@ -22,6 +31,11 @@ public class Main {
             System.out.printf("Enter right child value of %d (or -1 to skip): \n", current.getData());
             child = in.nextInt();
             if (child != -1) {
+                if (isRepeated(child,seen_nodes)) {
+                    System.out.print("Assumption: Numbers must be unique.");
+                    exit(1);
+                }
+                seen_nodes.add(child);
                 TreeNode right_child = new TreeNode(child);
                 current.setRightChild(right_child);
                 treeNodes.add(right_child);
@@ -45,5 +59,13 @@ public class Main {
         for (int node : postorder_traversal) {
             System.out.print(node + " ");
         }
+    }
+    static boolean isRepeated(int node, ArrayList<Integer> seen_nodes) {
+        for (int seen : seen_nodes) {
+            if (node == seen) {
+                return true;
+            }
+        }
+        return false;
     }
 }
